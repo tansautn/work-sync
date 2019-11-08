@@ -1,9 +1,8 @@
+. $PSScriptRoot\autoload.ps1
 function installFonts($fontSourceFolder){
     $ssfFonts = 0x14
     $Shell = New-Object -ComObject Shell.Application
     $SystemFontsFolder = $Shell.Namespace($ssfFonts)
-    $FontRegistry = Get-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts";
-    $UserFontRegistry = Get-Item "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Fonts";
     $FontFiles = $Shell.NameSpace((Resolve-Path $fontSourceFolder).Path)
     $SystemFontsPath = $SystemFontsFolder.Self.Path
     $newItem = 0;
@@ -14,9 +13,7 @@ function installFonts($fontSourceFolder){
             $fontname = $FontFiles.getDetailsOf($FontFile,21);
             $fonttype = $type.replace(" font file","");
             $regkeyname = "$fontname ($fonttype)";
-            $inSystem = $FontRegistry.GetValue($regkeyname)
-            $inUser = $UserFontRegistry.GetValue($regkeyname)
-            if(($null -eq $inSystem) -and ($null -eq $inUser)){
+            if((findFontInRegistry "$fontname") -eq $false){
                 # $FontFile will be copied to this path:
                 $targetPath = Join-Path $SystemFontsPath $FontFile.Name
                 # So, see if target exists...

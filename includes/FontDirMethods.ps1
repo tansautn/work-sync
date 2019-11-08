@@ -32,3 +32,24 @@ function FontDirObject(# Font Name in Registry, ex : Verdana (TrueType)
 function getFontDirObject(){
     return FontDirObject "$PSScriptRoot\..\fonts";
 }
+
+function findFontInRegistry(# Font Name without type
+[Parameter(Mandatory = $false, ValueFromPipeline = $true, Position = 0)]
+[ValidateNotNullOrEmpty()]
+[String]
+$fontname){
+    $FontRegistry = Get-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts";
+    $UserFontRegistry = Get-Item "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Fonts";
+    $types = @(" (TrueType)"," (OpenType)","");
+    foreach($type in $types){
+        $inSystem = $FontRegistry.GetValue("$fontname$type");
+        if($null -ne $inSystem){
+            return $inSystem;
+        }
+        $inUser = $UserFontRegistry.GetValue("$fontname$type");
+        if($null -ne $inUser){
+            return $inUser;
+        }
+    }
+    return $false;
+}
