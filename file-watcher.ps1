@@ -1,3 +1,4 @@
+git add ./includes/sqlite/
 #$changes = git status -u -s ./fonts/
 #$changes = git ls-files -c -o --exclude-standard --no-empty-directory .\fonts\
 $changes = git ls-files -d -m -o --exclude-standard --no-empty-directory .\fonts\

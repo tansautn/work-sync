@@ -30,10 +30,9 @@ function installFonts($fontSourceFolder){
                 }
             }
         }
-        write-host "Install Fonts Complete";
-        write-host "New Fonts : $newItem";
-        }
-
+    }
+    write-host "Install Fonts Complete";
+    write-host "New Fonts : $newItem";
 }
 $fontSourceFolder = ".\fonts"
 installFonts($fontSourceFolder);
