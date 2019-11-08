@@ -14,9 +14,11 @@ function installFonts($fontSourceFolder){
             $fontname = $FontFiles.getDetailsOf($FontFile,21);
             $fonttype = $type.replace(" font file","");
             $regkeyname = "$fontname ($fonttype)";
-            $inSystem = $FontRegistry.GetValue($regkeyname)
-            $inUser = $UserFontRegistry.GetValue($regkeyname)
-            if(($null -eq $inSystem) -and ($null -eq $inUser)){
+            $inSystem = $FontRegistry.GetValue("$fontname (OpenType)")
+            $inSystem2 = $FontRegistry.GetValue("$fontname (TrueType)")
+            $inUser = $UserFontRegistry.GetValue("$fontname (OpenType)")
+            $inUser2 = $UserFontRegistry.GetValue("$fontname (TrueType)")
+            if(($null -eq $inSystem) -and ($null -eq $inUser) -and ($null -eq $inSystem2) -and ($null -eq $inUser2)){
                 # $FontFile will be copied to this path:
                 $targetPath = Join-Path $SystemFontsPath $FontFile.Name
                 # So, see if target exists...
