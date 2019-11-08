@@ -5,4 +5,4 @@ powershell -command "Set-ExecutionPolicy Unrestricted -Scope CurrentUser;Set-Exe
 git clean -f -d ./fonts/
 git checkout -f
 git pull origin master
-cmd .\on-received.bat
+.\on-received.bat
