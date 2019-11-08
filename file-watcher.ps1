@@ -11,7 +11,7 @@ if($arr.Count -gt 0){
         $cmMsg = "$cmMsg`r`n$filePath";
     }
     Write-Host commit changes
-    git commit -m "$cmMsg"
+    git commit -m "$cmMsg" --author "Zuko <tansautn@gmail.com>"
     Write-Host push changes
     git push origin master --set-upstream
 }
