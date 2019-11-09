@@ -10,13 +10,19 @@ function processPath($srcFonts){
             #$FontFile.Name;
             #$FontFile.Name | Get-Member;
             if($null -eq $exist){
-                insertFont $FontFile.regkeyname $FontFile.Name.replace("'","`'") 1
-                $targetPath = Join-Path $dest $FontFile.Name
-                $srcPath = Join-Path $srcFonts $FontFile.Name
-#                (Test-Path $targetPath)
-                if((Test-Path $targetPath) -eq $false){
-                    Copy-Item $srcPath $targetPath
-                    $newItem++;
+                try{
+
+                    insertFont $FontFile.regkeyname $FontFile.Name.replace("'","`'") 1
+                    $targetPath = Join-Path $dest $FontFile.Name
+                    $srcPath = Join-Path $srcFonts $FontFile.Name
+                    #                (Test-Path $targetPath)
+                    if((Test-Path $targetPath) -eq $false){
+                        Copy-Item $srcPath $targetPath
+                        $newItem++;
+                    }
+
+                }catch{
+                    Write-Error "Exception : $_.Exception.ItemName - $_.Exception.Message";
                 }
             }else{
                 #doing nothing, since font is already copied.
