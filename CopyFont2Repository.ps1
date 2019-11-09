@@ -6,12 +6,14 @@ function processPath($srcFonts){
     foreach($FontFile in $collection) {
         if($true -eq $FontFile.isFontFile){
             $exist = queryFontData $FontFile.regkeyname;
-            $FontFile.regkeyname
-            $exist;
+#            $FontFile.regkeyname
+            #$FontFile.Name;
+            #$FontFile.Name | Get-Member;
             if($null -eq $exist){
-                insertFont "$FontFile.regkeyname" $FontFile.Name 1
-                $targetPath = Join-Path "$dest" $FontFile.Name
-                $srcPath = Join-Path "$srcFonts" $FontFile.Name
+                insertFont $FontFile.regkeyname $FontFile.Name 1
+                $targetPath = Join-Path $dest $FontFile.Name
+                $srcPath = Join-Path $srcFonts $FontFile.Name
+#                (Test-Path $targetPath)
                 if((Test-Path $targetPath) -eq $false){
                     Copy-Item $srcPath $targetPath
                     $newItem++;
@@ -21,6 +23,12 @@ function processPath($srcFonts){
                 #                write-host $FontFile.name
 #                write-host $FontFile.regkeyname
             }
+        }else{
+#            Write-Host $FontFile.Name;
+#            Write-Host $FontFile.Type;
+#            Write-Host $FontFile.Path;
+#            $FontFile | Get-Member;
+#            exit;
         }
     }
     Write-Host "Copy from $srcFonts complete. Count $newItem new files."

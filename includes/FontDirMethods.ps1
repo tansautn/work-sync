@@ -10,9 +10,9 @@ function FontDirObject(# Font Name in Registry, ex : Verdana (TrueType)
         $dir = $fontDir.items() | Select-Object
         foreach ($file in $dir){
             $type = $fontDir.getDetailsOf($file,2);
-            if(($type -eq "OpenType font file") -or ($type -eq "TrueType font file"))
+            if(($type -eq "OpenType font file") -or ($type -eq "TrueType font file") -or ($type -eq "Font file"))
             {
-                $fontname = $fontDir.getDetailsOf($file,21);
+                $fontname = $fontDir.getDetailsOf($file,21).replace("'","`'");
                 $fonttype = $type.replace(" font file","");
                 $regkeyname = "$fontname ($fonttype)";
                 $file | Add-Member -MemberType NoteProperty -Name isFontFile -Value $true -Force
