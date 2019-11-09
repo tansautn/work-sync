@@ -4,20 +4,29 @@ function processPath($srcFonts){
     $dest = (Resolve-Path $PSScriptRoot\fonts).Path;
     $collection = FontDirObject $srcFonts;
     foreach($FontFile in $collection) {
+    #$srcPath = Join-Path $srcFonts $FontFile.Name
+        if($FontFile.Name -like "*'*"){
+            Write-Host $FontFile.Name " - invalid file name";
+            Continue;
+        }
         if($true -eq $FontFile.isFontFile){
             $exist = queryFontData $FontFile.regkeyname;
 #            $FontFile.regkeyname
             #$FontFile.Name;
             #$FontFile.Name | Get-Member;
+            if($FontFile.Name -contains "'"){
+                 Write-Host $FontFile.Name;
+                 Write-Host "cut me di"
+                 Continue;
+            }
             if($null -eq $exist){
                 try{
-
-                    insertFont $FontFile.regkeyname $FontFile.Name.replace("'","`'") 1
-                    $targetPath = Join-Path $dest $FontFile.Name
+                    insertFont $FontFile.regkeyname $FontFile.Name 1
                     $srcPath = Join-Path $srcFonts $FontFile.Name
+                    $targetPath = Join-Path $dest $FontFile.Name
                     #                (Test-Path $targetPath)
                     if((Test-Path $targetPath) -eq $false){
-                        Copy-Item $srcPath $targetPath
+                        Copy-Item $FontFile.Path $targetPath
                         $newItem++;
                     }
 
