@@ -10,7 +10,7 @@ function processPath($srcFonts){
             #$FontFile.Name;
             #$FontFile.Name | Get-Member;
             if($null -eq $exist){
-                insertFont $FontFile.regkeyname $FontFile.Name 1
+                insertFont $FontFile.regkeyname $FontFile.Name.replace("'","`'") 1
                 $targetPath = Join-Path $dest $FontFile.Name
                 $srcPath = Join-Path $srcFonts $FontFile.Name
 #                (Test-Path $targetPath)
