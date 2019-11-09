@@ -10,7 +10,7 @@ function processPath($srcFonts){
                 insertFont $FontFile.regkeyname $FontFile.name 1
                 $targetPath = Join-Path $dest $FontFile.Name
                 $srcPath = Join-Path $srcFonts $FontFile.Name
-                if(Test-Path $targetPath -eq $false){
+                if((Test-Path $targetPath) -eq $false){
                     Copy-Item $srcPath $targetPath
                     $newItem++;
                 }

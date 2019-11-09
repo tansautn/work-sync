@@ -6,4 +6,4 @@ gen
 *.err.log
 err.log
 *.run.log
-run.log
+*.log
