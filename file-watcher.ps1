@@ -1,4 +1,8 @@
-git add $PSScriptRoot/includes/sqlite/
+$dbupdate = git ls-files -d -m -o --exclude-standard --no-empty-directory .\includes\sqlite\
+$dbupdate
+if($dbupdate){
+    git add .\includes\sqlite\ --all
+}
 #$changes = git status -u -s ./fonts/
 #$changes = git ls-files -c -o --exclude-standard --no-empty-directory .\fonts\
 $changes = git ls-files -d -m -o --exclude-standard --no-empty-directory .\fonts\
