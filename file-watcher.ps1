@@ -1,7 +1,7 @@
-$dbupdate = git ls-files -d -m -o --exclude-standard --no-empty-directory .\includes\sqlite\
+$dbupdate = git ls-files -d -m -o --exclude-standard --no-empty-directory .\includes\sqllite
 $dbupdate
 if($dbupdate){
-    git add .\includes\sqlite\ --all
+    git add ./includes/sqllite/db.sqlite
 }
 #$changes = git status -u -s ./fonts/
 #$changes = git ls-files -c -o --exclude-standard --no-empty-directory .\fonts\
