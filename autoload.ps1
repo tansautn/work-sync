@@ -1,3 +1,14 @@
+$cfgGit = $(git config --global --get user.email);
+if($cfgGit -eq $null){
+    Write-Host "Set user email git config";
+    git config --global user.email "tansautn@gmail.com"
+}
+$cfgGit2 = $(git config --global --get user.name);
+if($cfgGit2 -eq $null){
+    Write-Host "Set user name git config";
+    git config --global user.name "Zuko"
+}
+
 if (Get-Module -ListAvailable -Name PSSQLite) {
     Import-Module PSSQLite
 }
